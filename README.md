@@ -1,6 +1,3 @@
---------------BETA---------------
-
-
 A school project measuring the battery for an e-Bobycar
 
 
