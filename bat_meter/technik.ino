@@ -1,46 +1,39 @@
-int Lampen[10] ={12,11,10,9,8,7,6,5,4,3};
+int Lampen[10] = {12,11,10,9,8,7,6,5,4,3};
 char input = A0;
+int out;
+string debug = "";
 
-
-void setup() {
-  pinMode(input, INPUT);
+void setup() {  
   Serial.begin(9600);
-
-    // def alle
-    int a = 0;
-    while(a<sizeof(Lampen)){
-      //Serial.println("def pin:",a);
-      pinMode(Lampen[a], OUTPUT);
-      a++;
-    };
-
-      //alle an
-    int i = 0;
-    while(i<sizeof(Lampen)){
-      //Serial.println(i);
-      digitalWrite(Lampen[i], HIGH);
-      i++;
-    }; 
+//pins Definieren
+  pinMode(input, INPUT);
+// output pins klug Definieren
+  int a = 0;
+  while(a<sizeof(Lampen)){
+    pinMode(Lampen[a], OUTPUT);
+    a++;
+  };
+  Serial.println("OK Lets go!")
 }
+
 void loop() {
-   int g = analogRead(input);
-   Serial.println("volt jetzt:",g);  
-   
-   //mappen des puts                         to do here 
-   //int out map(a,1264,0) 
-   
-    //an machen
-   int i = 0;
-    while(i<out){
-      //Serial.println(i);
-      digitalWrite(Lampen[i], HIGH);
-      i++;
-    };
+  int g = analogRead(input);
+  debug = debug + "v: " + g;  
+  out = map(g,0,1000,0,10);
+  debug = debug + ",map: " + out + ",LEDs: "
     
-    //die aus machen
-    while(out<sizeof(Lampen)){
-      //Serial.println(i);
-      digitalWrite(Lampen[i], LOW);
-      i++;
-    }; 
+//leds an machen
+  int f = 0;
+  while(f<out){
+    debug = debug + "1|"
+    digitalWrite(Lampen[f], HIGH);
+    f++;
+  };
+//rest aus machen 
+  while(f<10){
+    debug = debug + "0|"
+    digitalWrite(Lampen[f], LOW);
+    f++;
+  }; 
+  Serial.println(debug)
 }
